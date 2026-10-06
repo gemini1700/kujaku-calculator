@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kujaku Score Calculator</title>
+    <link rel="icon" href="tiles/C4.png" />
+    <script type="module" crossorigin src="./assets/index-vnV-1i5w.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-i7b1y6jN.css">
+  </head>
+  <body>
+    <header>
+      <h1>Kujaku Score Calculator</h1>
+      <p class="sub">Build a hand with the tile buttons or type it below. The score updates as you go.</p>
+    </header>
+
+    <main>
+      <section class="panel" aria-labelledby="notation-h">
+        <h2 id="notation-h">Hand as text</h2>
+        <label class="sr-only" for="notation">Hand notation</label>
+        <textarea id="notation" rows="2" spellcheck="false" autocomplete="off"></textarea>
+        <p class="help">Same format as <code>npm run score</code>, e.g. <code>"R123123 D123 G123 G66" --round 2 --seat 4</code>. Options: <code>--open</code>, <code>--kan</code>, <code>--win</code>, <code>--ron</code>, <code>--tsumo</code>, <code>--dealer</code>, <code>--riichi</code>, <code>--ippatsu</code>, <code>--blessing</code>, <code>--kan-draw</code>, <code>--last</code>, <code>--dora</code>, and <code>--ura</code>.</p>
+        <div class="note" data-note="text" role="status" aria-live="polite"></div>
+      </section>
+
+      <div class="columns">
+        <div class="col">
+          <section class="panel" aria-labelledby="hand-h">
+            <div class="row-between">
+              <h2 id="hand-h">Your hand</h2>
+              <span id="hand-count" class="count"></span>
+            </div>
+            <div id="example" class="example-banner">
+              <span>This is an example hand so you can see a full score.</span>
+              <button type="button" id="example-clear">Start with an empty hand</button>
+            </div>
+            <div id="hand" class="hand" aria-live="polite"></div>
+            <div class="hand-actions">
+              <div id="group-idle">
+                <button type="button" id="group-start">Group tiles into a call or Kan…</button>
+                <button type="button" id="clear-hand" class="quiet">Clear hand</button>
+              </div>
+              <div id="group-active" hidden>
+                <span class="hint">Select the tiles of the group, then:</span>
+                <button type="button" id="group-open">Called (open) group</button>
+                <button type="button" id="group-closed">Closed Kan</button>
+                <button type="button" id="group-cancel" class="quiet">Cancel</button>
+              </div>
+            </div>
+            <div class="note" data-note="hand" role="status" aria-live="polite"></div>
+          </section>
+
+          <section class="panel" aria-labelledby="tiles-h">
+            <div class="row-between">
+              <h2 id="tiles-h">Tiles</h2>
+              <div class="segmented" role="radiogroup" aria-label="Add tiles to">
+                <button type="button" role="radio" data-mode="hand">Hand</button>
+                <button type="button" role="radio" data-mode="dora">Dora indicators</button>
+                <button type="button" role="radio" data-mode="ura">Ura-Dora indicators</button>
+              </div>
+            </div>
+            <div id="palette" class="palette"></div>
+            <div class="note" data-note="palette" role="status" aria-live="polite"></div>
+          </section>
+
+          <section class="panel" aria-labelledby="round-h">
+            <h2 id="round-h">Round and win</h2>
+            <div class="field">
+              <span class="label">Round roll</span>
+              <div class="dice" id="round-roll" role="radiogroup" aria-label="Round roll"></div>
+              <div class="note" data-note="round" role="status" aria-live="polite"></div>
+            </div>
+            <div class="field">
+              <span class="label">Seat roll</span>
+              <div class="dice" id="seat-roll" role="radiogroup" aria-label="Seat roll"></div>
+              <div class="note" data-note="seat" role="status" aria-live="polite"></div>
+            </div>
+            <div class="field">
+              <span class="label">Won by</span>
+              <div class="segmented" id="win-type" role="radiogroup" aria-label="Won by">
+                <button type="button" role="radio" data-win="">Not set</button>
+                <button type="button" role="radio" data-win="ron">Ron</button>
+                <button type="button" role="radio" data-win="tsumo">Tsumo</button>
+              </div>
+              <div class="note" data-note="win" role="status" aria-live="polite"></div>
+            </div>
+            <div class="field">
+              <label class="label" for="wait">Winning tile (the wait)</label>
+              <select id="wait"></select>
+              <div class="note" data-note="wait" role="status" aria-live="polite"></div>
+            </div>
+            <div class="field checks" id="flags"></div>
+            <div class="field">
+              <span class="label">Dora indicators</span>
+              <div id="dora" class="chips"></div>
+              <div class="note" data-note="dora" role="status" aria-live="polite"></div>
+            </div>
+            <div class="field">
+              <span class="label">Ura-Dora indicators</span>
+              <div id="ura" class="chips"></div>
+              <div class="note" data-note="ura" role="status" aria-live="polite"></div>
+            </div>
+          </section>
+        </div>
+
+        <div class="col">
+          <section class="panel results" aria-labelledby="result-h" aria-live="polite">
+            <h2 id="result-h">Score</h2>
+            <div id="result"></div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
